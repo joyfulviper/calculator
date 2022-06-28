@@ -1,43 +1,74 @@
 package calculator;
 
-public class Calculator {
-    private int a;
-    private int b;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
-    public void setOperands(int a, int b) {
-        this.a = a;
-        this.b = b;
+
+public class Calculator {
+    private double a;
+    private double b;
+
+    private char operator;
+
+    public Calculator() {
+        setOperands();
+        printResult();
     }
-    private int plus() {
+
+    private void setOperands() {
+        try {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.print("a값 입력: ");
+            this.a = sc.nextDouble();
+
+            System.out.print("연산자 입력: ");
+            this.operator = sc.next().charAt(0);
+
+            System.out.print("b값 입력: ");
+            this.b = sc.nextDouble();
+            if(operator == '/' && b == 0) throw new Exception("0으로는 나눌 수 없습니다.");
+
+            sc.close();
+        } catch (InputMismatchException ie) {
+            System.out.println("알맞은 값을 입력하세요");
+            setOperands();
+        } catch (Exception e) {
+            System.out.println("0으로는 나눌 수 없습니다.");
+            setOperands();
+        }
+
+    }
+
+
+    private double operate(char operator) {
+            if (operator == '+') {
+                return plus();
+            }
+            if (operator == '-') {
+                return minus();
+            }
+            if (operator == '*') {
+                return multiple();
+            }
+        return divide();
+    }
+    private double plus() {
         return a + b;
     }
 
-    private int minus() {
+    private double minus() {
         return a - b;
     }
 
-    private int divide() {
+    private double multiple() { return a * b;}
+
+    private double divide()  {
         return a / b;
     }
 
-    private int remain() {
-        return a % b;
-    }
-
-    public void printPlus() {
-        System.out.println("더하기 연산: " + plus());
-    }
-
-    public void printMinus() {
-        System.out.println("빼기 연산: " + minus());
-    }
-
-    public void printDivide() {
-        System.out.println("나누기 연산: " + divide());
-    }
-
-    public void printRemain() {
-        System.out.println("나머지 연산: " + remain());
+    private void printResult() {
+        System.out.println("결과: " + operate(operator));
     }
 
 }
