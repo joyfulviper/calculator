@@ -1,11 +1,10 @@
 package calculator;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
+public interface Calculator { //계산기의 공통점 추상화
 
-public class Calculator {
-    private double a;
+    double calculate(double a, double b);
+    /*private double a;
     private double b;
 
     private char operator;
@@ -69,6 +68,6 @@ public class Calculator {
 
     private void printResult() {
         System.out.println("결과: " + operate(operator));
-    }
+    }*/
 
 }
